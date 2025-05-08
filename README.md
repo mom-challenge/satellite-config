@@ -46,7 +46,7 @@ We need to verify that the current `SatAlphaV1` configuration, as defined in `sy
 2.  If the `calculated_total_mass_kg` in `system_config.json` were 360.0 kg (due to a component change, for instance), how would the `report.md` be updated to show that `REQ001` is now "NOT SATISFIED"?
 3.  What if a new requirement is added to `requirements.csv`? How would the system ensure this new requirement is checked and reported on?
 
-### Story C: Versioning & Change Impact
+### Story C: Versioning
 
 **Scenario:**
 The update to `MainThruster001`'s mass (from 150.5 kg to 165.0 kg in `ontology.owl`) is a significant design change. This implies that `ontology.owl` effectively becomes `ontology_v1.1.owl` (or `_v2.owl`).
