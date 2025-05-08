@@ -26,7 +26,7 @@ The challenge revolves around the following artifacts:
 
 Your task is to consider how model management practices and tools could address the following scenarios:
 
-### Story A: Traceability & Consistency (Ontology → JSON)
+### Story A: Change Impact & Consistency (Ontology → JSON)
 
 **Scenario:**
 The mass of a component defined in `ontology.owl` changes. For instance, the `MainThruster001` (ID `T001`), originally 150.5 kg, is found to be heavier, now weighing 165.0 kg. This change is updated in `ontology.owl`.
