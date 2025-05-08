@@ -58,6 +58,3 @@ The update to `MainThruster001`'s mass (from 150.5 kg to 165.0 kg in `ontology.o
 2.  How can we trace the lineage of these artifacts? (e.g., know that `report_v1.1.md` is derived from `system_config_v1.1.json` and `ontology_v1.1.owl`).
 3.  If `REQ001` in `requirements.csv` changes its value (e.g., max mass reduced to 340 kg), how does this impact existing configurations and their reports? How are these versions managed?
 
-## Goal
-
-Think about the relationships between these files and the implications of changes. What kind of tools, workflows, or data representations would help manage this complexity, ensure consistency, and maintain clear traceability across these diverse engineering artifacts? 
