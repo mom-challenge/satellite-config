@@ -24,7 +24,7 @@ The challenge revolves around the following artifacts:
 
 ## The Stories: Model Management Scenarios
 
-You do not have to implement all the scenarios or all of their aspects in order for a successfull submission to the challenge. The challenge questions do not necessarily cover all possible changes to keep the models consistent. Not all stories need to be implemented for a submission to this challenge. While we appreciate and favor real demonstrations with the tools, it is sufficient for a submission to discuss the features of the approach wrt. the stories and challenges therein without actually implementing them. Your task is to consider how your model management practices and tools (just `tool` from this point on) address the following scenarios:
+You do not have to implement all the scenarios or all of their aspects in order for a successfull submission to the challenge. The challenge questions do not necessarily cover all possible changes to keep the models consistent. While we appreciate and favor real demonstrations with the tools, it is sufficient for a submission to discuss the features of the approach wrt. the stories and challenges therein without actually implementing them. Your task is to consider how your model management practices and tools (just `tool` from this point on) address the following scenarios:
 
 ### Story A: Change Impact & Consistency (Ontology → JSON)
 
