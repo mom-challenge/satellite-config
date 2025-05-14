@@ -58,7 +58,7 @@ The update to `MainThruster001`'s mass (from 150.5 kg to 165.0 kg in `ontology.o
 2.  How does your tool trace the lineage of these artifacts? (e.g., know that `report_v1.1.md` is derived from `system_config_v1.1.json` and `ontology_v1.1.owl`).
 3.  `REQ001` in `requirements.csv` changes its value (`calculated_total_mass_kg` reduced to 340 kg). How does this impact existing configurations and their reports, managed by your tool? Wether or how are these versions managed?
 
-### Story D: Views
+### Story D: Generation of Views
 
 **Scenario:**
 `REQ002` in `requirements.csv` is applicable to every single component. However, from the file itself it is not clear, what components are of interest here.
