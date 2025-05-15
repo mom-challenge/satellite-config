@@ -4,7 +4,7 @@ Welcome to the Model Management Challenge! This challenge uses a simplified sate
 
 ## Challenge Overview
 
-In modern engineering, designs, requirements, analyses, and reports are often spread across various files and formats. Keeping these artifacts consistent, traceable, and up-to-date is a significant challenge. This set of mock artifacts is designed to highlight these issues.
+In modern engineering, designs, requirements, analyses, and reports are often spread across various files and formats with semantics expressed in different (modelling) languages. Keeping these artifacts consistent, traceable, and up-to-date is a significant challenge. This set of mock artifacts is designed to highlight these issues.
 
 ## Artifacts
 
