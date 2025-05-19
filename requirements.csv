@@ -1,3 +1,0 @@
-RequirementID,Description,Parameter,Operator,Value,Unit
-REQ001,"Total system mass for SatAlphaV1 configuration must be acceptable","calculated_total_mass_kg","<=",350,kg
-REQ002,"Maximum individual component mass","component_mass_max","<=",200,kg
