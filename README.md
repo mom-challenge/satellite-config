@@ -4,7 +4,7 @@ Welcome to the Satellite Configuration Model Management Challenge! This challeng
 
 # Case Description
 
-Different artefacts contribute to the development and management of complex engineered (cyber-physical) systems. We are inspired by a recent visit to the [Royal Belgian Institute for Space Aeronomy (BIRA-IASB)](https://www.aeronomie.be) in the design of the artefacts of this challenge. The artefacts revolve around a satellite design and configuration case study. Examples associated with the configuration of aeronautical systems have also been used before, for example, in the tutorials for the Ontological Modelling Language ([OML tutorials](https://www.opencaesar.io/oml-tutorials/)) [@opencaesar].
+Different artefacts contribute to the development and management of complex engineered (cyber-physical) systems. We are inspired by a recent visit to the [Royal Belgian Institute for Space Aeronomy (BIRA-IASB)](https://www.aeronomie.be) in the design of the artefacts of this challenge. The artefacts revolve around a satellite design and configuration case study. Examples associated with the configuration of aeronautical systems have also been used before, for example, in the tutorials for the Ontological Modelling Language ([OML tutorials](https://www.opencaesar.io/oml-tutorials/)).
 
 ## Artefacts
 
