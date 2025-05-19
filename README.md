@@ -1,68 +1,65 @@
 # Model Management Challenge: Satellite Configuration
 
-Welcome to the Model Management Challenge! This challenge uses a simplified satellite configuration scenario to explore common problems in managing interconnected engineering artifacts.
+Welcome to the Satellite Configuration Model Management Challenge! This challenge uses a simplified satellite configuration scenario to explore common problems in managing interconnected engineering artifacts.
 
-## Challenge Overview
+# Case Description
 
-In modern engineering, designs, requirements, analyses, and reports are often spread across various files and formats with semantics expressed in different (modelling) languages. Keeping these artifacts consistent, traceable, and up-to-date is a significant challenge. This set of mock artifacts is designed to highlight these issues.
+Different artefacts contribute to the development and management of complex engineered (cyber-physical) systems. We are inspired by a recent visit to the [Royal Belgian Institute for Space Aeronomy (BIRA-IASB)](https://www.aeronomie.be) in the design of the artefacts of this challenge. The artefacts revolve around a satellite design and configuration case study. Examples associated with the configuration of aeronautical systems have also been used before, for example, in the tutorials for the Ontological Modelling Language ([OML tutorials](https://www.opencaesar.io/oml-tutorials/)) [@opencaesar].
 
-## Artifacts
+## Artefacts
 
-The challenge revolves around the following artifacts:
+The artefacts for the satellite configuration model management challenge are available in this [public GitHub repository](https://github.com/mom-challenge/challenge-2025).
 
-1.  **`ontology.owl`**: An OWL (Web Ontology Language) file defining a vocabulary for satellite components. It specifies types of components (e.g., `ThrusterComponent`, `SolarPanelComponent`) and their properties, such as `hasMass` and `componentID`. It also contains individuals (specific instances of components) with their assigned mass values.
-    *   *Purpose*: Acts as a product/part catalogue and additionally establishes a common terminology.
+In complex systems engineering -- designs, requirements, analyses, and reports are often spread across various files and formats, with semantics expressed in different (modelling) languages. Keeping these artefacts consistent, traceable, and up-to-date is a significant challenge. This set of example artefacts is designed to highlight these issues.
 
-2.  **`system_config.json`**: A JSON file describing a specific satellite configuration, named `SatAlphaV1`. It lists the components used in this configuration, their quantities, and their individual masses (which should be consistent with the `ontology.owl` file). It also includes a `calculated_total_mass_kg`.
-    *   *Purpose*: Defines a bill of materials for a specific system instance and aggregates properties like total mass.
+- **Part catalogue** (`ontology.owl`): We provide an [OWL](https://www.w3.org/TR/owl2-overview/) (Web Ontology Language) file defining a vocabulary for satellite components. It specifies types of components (e.g., *ThrusterComponent*, *SolarPanelComponent*) and their properties (e.g., *hasMass* and *componentID*). It also contains individuals (specific instances of components) with their assigned mass values. The ontology (and corresponding knowledge graph) acts as a product/part catalogue and additionally establishes a common terminology for the various stakeholders of the system, and for the current challenge.
 
-3.  **`requirements.csv`**: A CSV (Comma Separated Values) file outlining design requirements for the satellite system. For example, it specifies a maximum allowable total system mass (`REQ001`) and a maximum allowable mass for any single component (`REQ002`).
-    *   *Purpose*: Specifies constraints that the system design must satisfy.
+- **System Decomposition / Architecture** (`system_config.json`): We provide a [JSON](https://www.json.org/json-en.html) file describing a specific satellite configuration, named *SatAlphaV1*. It lists the components used in this configuration, their quantities, and their individual masses (which should be consistent with the part catalogue file). It also includes a *calculated_total_mass_kg* property which is the sum of all parts that a system or sub-system is composed of. This specification essentially defines a 'bill of materials' for a specific system instance and aggregates properties like total mass, while also describing the architectural system decomposition.
 
-4.  **`report.md`**: A Markdown file summarizing the `SatAlphaV1` system's properties and verifying whether the specified requirements from `requirements.csv` are met.
-    *   *Purpose*: Provides a human-readable validation of the system against its requirements.
+- **Requirements Specification** (`requirements.csv`): We provide a CSV (Comma Separated Values) file outlining design requirements for the satellite system. For example, it specifies a maximum allowable total system mass (*REQ001*) and a maximum allowable mass for any single component (*REQ002*). Such a specification serves to describe constraints that the system design must satisfy.
 
-## The Stories: Model Management Scenarios
+- **Generated Report** (`report.md`): We provide a Markdown file summarizing the *SatAlphaV1* system's properties and the verification results of the specified requirements from the requirements specification. The report is a means to provide a human-readable format of the results of validation of the system design for the non-technical stakeholders of the engineering organization.
 
-You do not have to implement all the scenarios or all of their aspects in order for a successfull submission to the challenge. The challenge questions do not necessarily cover all possible changes to keep the models consistent. While we appreciate and favor real demonstrations with the tools, it is sufficient for a submission to discuss the features of the approach wrt. the stories and challenges therein without actually implementing them. Your task is to consider how your model management practices and tools (just `tool` from this point on) address the following scenarios:
+Note that we aimed to provide the artefacts in the simplest format with the semantics as described above. If your tool or framework does not support the above formats, you are free to re-implement the above artefacts in a format/notation/language of your choice, while respecting the same semantics. We invite you to contribute such new artefacts to the challenge Git repository via a pull request.
 
-### Story A: Change Impact & Consistency (Ontology → JSON)
+In the following section, we describe the model management scenarios of this challenge, without committing to any specific file/artefact format.
 
-**Scenario:**
-The mass of a component defined in `ontology.owl` changes. In this scenario, the mass of the thruster component changes, because of a change in fuel that is needed for longer flights. Therefore, the `MainThruster001` (ID `T001`), originally 150.5 kg, is found to be heavier, now weighing 165.0 kg. This change is updated in `ontology.owl`.
+## Model Management Scenarios
 
-**Challenge Questions:**
-1.  How does your tool detect this change in `ontology.owl`?
-2.  What mechanisms or processes ensure that the `mass_kg_per_unit` for component `T001` in `system_config.json` is updated to 165.0?
-3.  Consequently, how does your tool recalculate and update the `calculated_total_mass_kg` in `system_config.json`?
+1. **Change Impact & Consistency**
 
-### Story B: Unified Querying & Validation (JSON ↔ CSV → Report)
+   The mass of a component defined in the part catalogue changes. In this scenario, the mass of the thruster component changes, because of a change in fuel that is needed for longer flights. Therefore, the *MainThruster001* (with ID *T001*), originally 150.5 kg, is found to be heavier, now weighing 165.0 kg.
 
-**Scenario:**
-We need to verify that the current `SatAlphaV1` configuration, as defined in `system_config.json`, meets the mass requirement `REQ001` (total system mass <= 350 kg) specified in `requirements.csv`. The `report.md` should reflect this verification.
+   - Consequently, the *mass_kg_per_unit* for component *T001* in the architecture specification needs to be updated to 165.0.
+   - Consequently, the *calculated_total_mass_kg* in the architecture specification needs to be recalculated and updated.
 
-**Challenge Questions:**
-1.  How does your tool automate the check that the `calculated_total_mass_kg` from `system_config.json` complies with the relevant constraint in `requirements.csv`?
-2.  When the `calculated_total_mass_kg` in `system_config.json` is (automatic or manually) updated to 360.0 kg (due to the component change), how does your tool update the `report.md` to show that `REQ001` is now "NOT SATISFIED"?
-3.  How does your tool reflect new requirements and their evaluation in the report? The new requirement `Every satelite needs at least one solar panel.` is added to `requirements.csv`. How does your tool ensure this new requirement is checked and reported on, e.g., by adding new rules?
+2. **Unified Querying & Validation**
 
-### Story C: Versioning
+   We need to verify that the current *SatAlphaV1* configuration, as defined in the architecture specification, meets the mass requirement *REQ001* (total system mass ≤ 350 kg) described in the requirements specification.
 
-**Scenario:**
-The update to `MainThruster001`'s mass (from 150.5 kg to 165.0 kg in `ontology.owl`) is a significant design change. This implies that `ontology.owl` effectively becomes `ontology_v1.1.owl` (or `_v2.owl`).
+   - The report should reflect this verification.
+   - If the *calculated_total_mass_kg* in the architecture specification is (automatically or manually) updated to 360.0 kg (due to the component change from the previous scenario), the requirement is **NOT SATISFIED**. This needs to be updated in the report.
 
-**Challenge Questions:**
-1.  In your tool, whether or how does this change trigger new versions of dependent artifacts? Please describe how your tool handles this, e.g., by creating copies, branches, or using a change-based representation. Please discuss the approach of your tool based on:
-    *   `system_config.json` needs to be updated (reflecting the new mass and new total mass), becoming `system_config_v1.1.json`.
-    *   `report.md` needs to be updated/regenerated (reflecting the new values and potentially a changed satisfaction status for `REQ001`), becoming `report_v1.1.md`.
-2.  How does your tool trace the lineage of these artifacts? (e.g., know that `report_v1.1.md` is derived from `system_config_v1.1.json` and `ontology_v1.1.owl`).
-3.  `REQ001` in `requirements.csv` changes its value (`calculated_total_mass_kg` reduced to 340 kg). How does this impact existing configurations and their reports, managed by your tool? Wether or how are these versions managed?
+3. **Generation of Views**
 
-### Story D: Generation of Views
+   The architecture decomposition artefact presented in the previous section describes the complete set of systems, subsystems, and components in the satellite payload. However, engineers typically focus on their specific views, and their individual view-point-specific contributions contribute to the whole satellite. Let's say there is a communications engineer who is only concerned with the communication subsystem, and would like to only *see* the *part* of the satellite associated with the communications viewpoint.
 
-**Scenario:**
-`REQ002` in `requirements.csv` is applicable to every single component. However, from the file itself it is not clear, what components are of interest here.
+   - For the UI of the communications engineer, the irrelevant subsystems should be abstracted out and only the relevant ones presented.
+   - If the communications engineer modifies a component in the communications subsystem (let's say, adds a new *AntennaComponent* with ID *ANT002*), from the communications view, that change needs to be reflected in the total system architecture.
 
-**Challenge Questions:**
-1.  Whether and if so how does your tool allow for the creation of views, i.e., aggregating parts of different models into a new format to be viewed (and possibly modified) by a user?
-2.  How can you create a view in your tool that shows the different components from `ontology.owl` to which `REQ002` in `requirements.csv` applies?
+4. **Versioning**
+
+   The versioning scenario consolidates some and depends on the previously described scenarios:
+
+   The update to *MainThruster001*'s mass (from 150.5 kg to 165.0 kg in the product catalogue) is a significant design change. This implies that, *product_catalogue_v1* effectively becomes *product_catalogue_v2*. This also triggers a change in the architecture specification as described in the change impact scenario (scenario 1). This also potentially impacts and necessitates an update to the report (scenario 2). Consequently, the view may also need to be updated if the *MainThruster001* component is relevant for the viewpoint of a hypothetical propulsion engineer (scenario 3).
+
+   - The lineage of different versions of the same artefact (*product_catalogue_v1* becomes *product_catalogue_v2*, *architecture_specification_v1* becomes *architecture_specification_v2*, *report_v1* becomes *report_v2*) should be tracked.
+   - The reasons for creation of a new version of the dependent artefacts (in this case, the architecture specification and report) should be tracked as well (i.e., why was a new version *architecture_specification_v2* and *report_v2* created?).
+
+5. **Collaboration**
+
+   Let's say there are 2 communications engineers working concurrently on the satellite design and they independently make conflicting changes to the satellite communications subsystem. Engineer 1 renames *Antenna Component* with id *ANT001* to *ANT003*, whereas Engineer 2 deletes the antenna with ID *ANT001*.
+
+   - The engineers need live collaboration to visualize changes made by each other in real-time; in such a scenario, possibly these conflicts will not occur in the first place.
+   - However, if conflicting (offline) changes are made by the engineers, they need to be handled and possible reconciliation strategies should be suggested.
+
