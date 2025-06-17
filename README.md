@@ -38,7 +38,7 @@ In the following section, we describe the model management scenarios of this cha
    We need to verify that the current *SatAlphaV1* configuration, as defined in the architecture specification, meets the mass requirement *REQ001* (total system mass ≤ 350 kg) described in the requirements specification.
 
    - The report should reflect this verification.
-   - If the *calculated_total_mass_kg* in the architecture specification is (automatically or manually) updated to 360.0 kg (due to the component change from the previous scenario), the requirement is **NOT SATISFIED**. This needs to be updated in the report.
+   - If the *calculated_total_mass_kg* in the architecture specification is (automatically or manually) updated to 355.4 kg (due to the component change from the previous scenario), the requirement is **NOT SATISFIED**. This needs to be updated in the report.
 
 3. **Generation of Views**
 
