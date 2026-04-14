@@ -1,0 +1,10 @@
+{
+  "subsystem": "communications",
+  "nodes": [
+    { "component_id": "Controller", "type": "CC001", "role": "signal_router" },
+    { "component_id": "Antenna", "type": "ANT001", "role": "transceiver" }
+  ],
+  "links": [
+    { "source": "Controller", "target": "Antenna", "type": "rf_connection", "protocol": "X-band" }
+  ]
+}

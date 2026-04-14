@@ -1,0 +1,12 @@
+{
+  "subsystem": "communications",
+  "nodes": [
+    { "component_id": "Controller", "type": "CC001", "role": "signal_router" },
+    { "component_id": "AntennaPrimary", "type": "ANT001", "role": "transceiver" },
+    { "component_id": "AntennaBackup", "type": "ANT002", "role": "backup_transceiver" }
+  ],
+  "links": [
+    { "source": "Controller", "target": "AntennaPrimary", "type": "rf_connection", "protocol": "X-band" },
+    { "source": "Controller", "target": "AntennaBackup", "type": "rf_connection", "protocol": "X-band" }
+  ]
+}

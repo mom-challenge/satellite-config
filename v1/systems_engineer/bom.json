@@ -1,0 +1,30 @@
+{
+  "components": [
+    {
+      "type": "T001",
+      "quantity": 2,
+      "mass_kg_per_unit": 85.0
+    },
+    {
+      "type": "SP001",
+      "quantity": 2,
+      "mass_kg_per_unit": 55.0
+    },
+    {
+      "type": "ANT001",
+      "quantity": 1,
+      "mass_kg_per_unit": 22.0
+    },
+    {
+      "type": "AC001",
+      "quantity": 1,
+      "mass_kg_per_unit": 12.0
+    },
+    {
+      "type": "CC001",
+      "quantity": 1,
+      "mass_kg_per_unit": 8.0
+    }
+  ],
+  "calculated_total_mass_kg": 322.0
+}

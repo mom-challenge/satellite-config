@@ -1,0 +1,561 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.example.com/satellite#"
+     xml:base="http://www.example.com/satellite"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:vim4="http://bipm.org/jcgm/vim4#"
+     xmlns:iso-80000-4.1="http://iso.org/iso-80000-4.1#">
+    <owl:Ontology rdf:about="http://www.example.com/satellite"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#characterizes -->
+
+    <owl:ObjectProperty rdf:about="http://bipm.org/jcgm/vim4#characterizes">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://bipm.org/jcgm/vim4#IndividualProperty"/>
+        <rdfs:range rdf:resource="http://bipm.org/jcgm/vim4#Object"/>
+        <rdfs:label>characterizes</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#instantiates -->
+
+    <owl:ObjectProperty rdf:about="http://bipm.org/jcgm/vim4#instantiates">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://bipm.org/jcgm/vim4#IndividualProperty"/>
+        <rdfs:range rdf:resource="http://bipm.org/jcgm/vim4#GeneralProperty"/>
+        <rdfs:label>instantiates</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#isAttributedTo -->
+
+    <owl:ObjectProperty rdf:about="http://bipm.org/jcgm/vim4#isAttributedTo">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://bipm.org/jcgm/vim4#QuantityValue"/>
+        <rdfs:range rdf:resource="http://bipm.org/jcgm/vim4#IndividualProperty"/>
+        <rdfs:label>is attributed to</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#unit -->
+
+    <owl:ObjectProperty rdf:about="http://bipm.org/jcgm/vim4#unit">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://bipm.org/jcgm/vim4#UnitaryQuantityValue"/>
+        <rdfs:range rdf:resource="http://bipm.org/jcgm/vim4#MeasurementUnit"/>
+        <rdfs:label>unit</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#hasDoubleNumber -->
+
+    <owl:DatatypeProperty rdf:about="http://bipm.org/jcgm/vim4#hasDoubleNumber">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://bipm.org/jcgm/vim4#UnitaryQuantityValue"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+        <rdfs:isDefinedBy>[VIM4 CD: 1.21]</rdfs:isDefinedBy>
+        <rdfs:label>has double number</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#id -->
+
+    <owl:DatatypeProperty rdf:about="http://bipm.org/jcgm/vim4#id">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://bipm.org/jcgm/vim4#IdentifiedElement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>id</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.com/satellite#componentID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.com/satellite#componentID">
+        <rdfs:domain rdf:resource="http://www.example.com/satellite#Component"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#GeneralProperty -->
+
+    <owl:Class rdf:about="http://bipm.org/jcgm/vim4#GeneralProperty">
+        <rdfs:subClassOf rdf:resource="http://bipm.org/jcgm/vim4#IdentifiedElement"/>
+        <rdfs:label>general property</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#GeneralQuantity -->
+
+    <owl:Class rdf:about="http://bipm.org/jcgm/vim4#GeneralQuantity">
+        <rdfs:subClassOf rdf:resource="http://bipm.org/jcgm/vim4#GeneralProperty"/>
+        <rdfs:isDefinedBy>[VIM4 CD: 1.1]</rdfs:isDefinedBy>
+        <rdfs:label>general quantity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#GeneralUnitaryQuantity -->
+
+    <owl:Class rdf:about="http://bipm.org/jcgm/vim4#GeneralUnitaryQuantity">
+        <rdfs:subClassOf rdf:resource="http://bipm.org/jcgm/vim4#GeneralQuantity"/>
+        <rdfs:isDefinedBy>[VIM4 CD: 1.1 - 1.30]</rdfs:isDefinedBy>
+        <rdfs:label>general unitary quantity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#IdentifiedElement -->
+
+    <owl:Class rdf:about="http://bipm.org/jcgm/vim4#IdentifiedElement">
+        <owl:hasKey rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://bipm.org/jcgm/vim4#id"/>
+        </owl:hasKey>
+        <rdfs:label>identified element</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#IndividualProperty -->
+
+    <owl:Class rdf:about="http://bipm.org/jcgm/vim4#IndividualProperty">
+        <rdfs:label>individual property</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#IndividualQuantity -->
+
+    <owl:Class rdf:about="http://bipm.org/jcgm/vim4#IndividualQuantity">
+        <rdfs:subClassOf rdf:resource="http://bipm.org/jcgm/vim4#IndividualProperty"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://bipm.org/jcgm/vim4#instantiates"/>
+                <owl:allValuesFrom rdf:resource="http://bipm.org/jcgm/vim4#GeneralQuantity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:isDefinedBy>[VIM4 CD: 1.2]</rdfs:isDefinedBy>
+        <rdfs:label>individual quantity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#IndividualUnitaryQuantity -->
+
+    <owl:Class rdf:about="http://bipm.org/jcgm/vim4#IndividualUnitaryQuantity">
+        <rdfs:subClassOf rdf:resource="http://bipm.org/jcgm/vim4#IndividualQuantity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://bipm.org/jcgm/vim4#instantiates"/>
+                <owl:allValuesFrom rdf:resource="http://bipm.org/jcgm/vim4#GeneralUnitaryQuantity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:isDefinedBy>[VIM4 CD: 1.2 - 1.31]</rdfs:isDefinedBy>
+        <rdfs:label>individual unitary quantity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#MeasurementUnit -->
+
+    <owl:Class rdf:about="http://bipm.org/jcgm/vim4#MeasurementUnit">
+        <rdfs:subClassOf rdf:resource="http://bipm.org/jcgm/vim4#IdentifiedElement"/>
+        <rdfs:subClassOf rdf:resource="http://bipm.org/jcgm/vim4#IndividualProperty"/>
+        <rdfs:isDefinedBy>[VIM4 CD: 1.9]</rdfs:isDefinedBy>
+        <rdfs:label>measurement unit</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#Object -->
+
+    <owl:Class rdf:about="http://bipm.org/jcgm/vim4#Object">
+        <rdfs:isDefinedBy>[VIM4 2CD: Introduction]</rdfs:isDefinedBy>
+        <rdfs:label>object</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#QuantityValue -->
+
+    <owl:Class rdf:about="http://bipm.org/jcgm/vim4#QuantityValue">
+        <rdfs:subClassOf rdf:resource="http://bipm.org/jcgm/vim4#IndividualQuantity"/>
+        <rdfs:isDefinedBy>[VIM4 CD: 1.20]</rdfs:isDefinedBy>
+        <rdfs:label>quantity value</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#UnitaryQuantityValue -->
+
+    <owl:Class rdf:about="http://bipm.org/jcgm/vim4#UnitaryQuantityValue">
+        <rdfs:subClassOf rdf:resource="http://bipm.org/jcgm/vim4#QuantityValue"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://bipm.org/jcgm/vim4#isAttributedTo"/>
+                <owl:allValuesFrom rdf:resource="http://bipm.org/jcgm/vim4#IndividualUnitaryQuantity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://bipm.org/jcgm/vim4#unit"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://bipm.org/jcgm/vim4#MeasurementUnit"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:isDefinedBy>[VIM4 CD: 1.20]</rdfs:isDefinedBy>
+        <rdfs:label>unitary quantity value</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://bipm.org/jcgm/vim4#UnprefixedMeasurementUnit -->
+
+    <owl:Class rdf:about="http://bipm.org/jcgm/vim4#UnprefixedMeasurementUnit">
+        <rdfs:subClassOf rdf:resource="http://bipm.org/jcgm/vim4#MeasurementUnit"/>
+        <rdfs:isDefinedBy>[VIM4 CD: 1.9 except for 1.17 and 1.18]</rdfs:isDefinedBy>
+        <rdfs:label>unprefixed measurement unit</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/satellite#Antenna -->
+
+    <owl:Class rdf:about="http://www.example.com/satellite#Antenna">
+        <rdfs:subClassOf rdf:resource="http://www.example.com/satellite#CommunicationComponent"/>
+        <rdfs:label>antenna</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/satellite#AttitudeController -->
+
+    <owl:Class rdf:about="http://www.example.com/satellite#AttitudeController">
+        <rdfs:subClassOf rdf:resource="http://www.example.com/satellite#Controller"/>
+        <rdfs:label>attitude controller</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/satellite#CommunicationComponent -->
+
+    <owl:Class rdf:about="http://www.example.com/satellite#CommunicationComponent">
+        <rdfs:subClassOf rdf:resource="http://www.example.com/satellite#Component"/>
+        <rdfs:label>communication component</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/satellite#CommunicationController -->
+
+    <owl:Class rdf:about="http://www.example.com/satellite#CommunicationController">
+        <rdfs:subClassOf rdf:resource="http://www.example.com/satellite#CommunicationComponent"/>
+        <rdfs:subClassOf rdf:resource="http://www.example.com/satellite#Controller"/>
+        <rdfs:label>communication controller</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/satellite#Component -->
+
+    <owl:Class rdf:about="http://www.example.com/satellite#Component">
+        <rdfs:subClassOf rdf:resource="http://bipm.org/jcgm/vim4#Object"/>
+        <rdfs:label>component</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/satellite#Controller -->
+
+    <owl:Class rdf:about="http://www.example.com/satellite#Controller">
+        <rdfs:subClassOf rdf:resource="http://www.example.com/satellite#Component"/>
+        <rdfs:label>controller</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/satellite#SolarPanel -->
+
+    <owl:Class rdf:about="http://www.example.com/satellite#SolarPanel">
+        <rdfs:subClassOf rdf:resource="http://www.example.com/satellite#Component"/>
+        <rdfs:label>solar panel</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/satellite#Thruster -->
+
+    <owl:Class rdf:about="http://www.example.com/satellite#Thruster">
+        <rdfs:subClassOf rdf:resource="http://www.example.com/satellite#Component"/>
+        <rdfs:label>thruster</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://iso.org/iso-80000-4.1#kilogram -->
+
+    <owl:NamedIndividual rdf:about="http://iso.org/iso-80000-4.1#kilogram">
+        <rdf:type rdf:resource="http://bipm.org/jcgm/vim4#UnprefixedMeasurementUnit"/>
+        <vim4:instantiates rdf:resource="http://iso.org/iso-80000-4.1#mass"/>
+        <vim4:id>kilogram</vim4:id>
+        <rdfs:label>kilogram</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://iso.org/iso-80000-4.1#mass -->
+
+    <owl:NamedIndividual rdf:about="http://iso.org/iso-80000-4.1#mass">
+        <rdf:type rdf:resource="http://bipm.org/jcgm/vim4#GeneralUnitaryQuantity"/>
+        <vim4:id>mass</vim4:id>
+        <rdfs:label>mass</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#Antenna001 -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#Antenna001">
+        <rdf:type rdf:resource="http://www.example.com/satellite#Antenna"/>
+        <componentID>ANT001</componentID>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#Antenna001_mass -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#Antenna001_mass">
+        <rdf:type rdf:resource="http://bipm.org/jcgm/vim4#IndividualUnitaryQuantity"/>
+        <vim4:characterizes rdf:resource="http://www.example.com/satellite#Antenna001"/>
+        <vim4:instantiates rdf:resource="http://iso.org/iso-80000-4.1#mass"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#Antenna001_mass_value -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#Antenna001_mass_value">
+        <rdf:type rdf:resource="http://bipm.org/jcgm/vim4#UnitaryQuantityValue"/>
+        <vim4:isAttributedTo rdf:resource="http://www.example.com/satellite#Antenna001_mass"/>
+        <vim4:unit rdf:resource="http://iso.org/iso-80000-4.1#kilogram"/>
+        <vim4:hasDoubleNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double">22.0</vim4:hasDoubleNumber>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#Antenna002 -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#Antenna002">
+        <rdf:type rdf:resource="http://www.example.com/satellite#Antenna"/>
+        <componentID>ANT002</componentID>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#Antenna002_mass -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#Antenna002_mass">
+        <rdf:type rdf:resource="http://bipm.org/jcgm/vim4#IndividualUnitaryQuantity"/>
+        <vim4:characterizes rdf:resource="http://www.example.com/satellite#Antenna002"/>
+        <vim4:instantiates rdf:resource="http://iso.org/iso-80000-4.1#mass"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#Antenna002_mass_value -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#Antenna002_mass_value">
+        <rdf:type rdf:resource="http://bipm.org/jcgm/vim4#UnitaryQuantityValue"/>
+        <vim4:isAttributedTo rdf:resource="http://www.example.com/satellite#Antenna002_mass"/>
+        <vim4:unit rdf:resource="http://iso.org/iso-80000-4.1#kilogram"/>
+        <vim4:hasDoubleNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double">15.0</vim4:hasDoubleNumber>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#MainThruster001 -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#MainThruster001">
+        <rdf:type rdf:resource="http://www.example.com/satellite#Thruster"/>
+        <componentID>T001</componentID>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#MainThruster001_mass -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#MainThruster001_mass">
+        <rdf:type rdf:resource="http://bipm.org/jcgm/vim4#IndividualUnitaryQuantity"/>
+        <vim4:characterizes rdf:resource="http://www.example.com/satellite#MainThruster001"/>
+        <vim4:instantiates rdf:resource="http://iso.org/iso-80000-4.1#mass"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#MainThruster001_mass_value -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#MainThruster001_mass_value">
+        <rdf:type rdf:resource="http://bipm.org/jcgm/vim4#UnitaryQuantityValue"/>
+        <vim4:isAttributedTo rdf:resource="http://www.example.com/satellite#MainThruster001_mass"/>
+        <vim4:unit rdf:resource="http://iso.org/iso-80000-4.1#kilogram"/>
+        <vim4:hasDoubleNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double">85.0</vim4:hasDoubleNumber>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#SolarPanel001 -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#SolarPanel001">
+        <rdf:type rdf:resource="http://www.example.com/satellite#SolarPanel"/>
+        <componentID>SP001</componentID>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#SolarPanel001_mass -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#SolarPanel001_mass">
+        <rdf:type rdf:resource="http://bipm.org/jcgm/vim4#IndividualUnitaryQuantity"/>
+        <vim4:characterizes rdf:resource="http://www.example.com/satellite#SolarPanel001"/>
+        <vim4:instantiates rdf:resource="http://iso.org/iso-80000-4.1#mass"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#SolarPanel001_mass_value -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#SolarPanel001_mass_value">
+        <rdf:type rdf:resource="http://bipm.org/jcgm/vim4#UnitaryQuantityValue"/>
+        <vim4:isAttributedTo rdf:resource="http://www.example.com/satellite#SolarPanel001_mass"/>
+        <vim4:unit rdf:resource="http://iso.org/iso-80000-4.1#kilogram"/>
+        <vim4:hasDoubleNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double">55.0</vim4:hasDoubleNumber>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#AttitudeCtrl001 -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#AttitudeCtrl001">
+        <rdf:type rdf:resource="http://www.example.com/satellite#AttitudeController"/>
+        <componentID>AC001</componentID>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#AttitudeCtrl001_mass -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#AttitudeCtrl001_mass">
+        <rdf:type rdf:resource="http://bipm.org/jcgm/vim4#IndividualUnitaryQuantity"/>
+        <vim4:characterizes rdf:resource="http://www.example.com/satellite#AttitudeCtrl001"/>
+        <vim4:instantiates rdf:resource="http://iso.org/iso-80000-4.1#mass"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#AttitudeCtrl001_mass_value -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#AttitudeCtrl001_mass_value">
+        <rdf:type rdf:resource="http://bipm.org/jcgm/vim4#UnitaryQuantityValue"/>
+        <vim4:isAttributedTo rdf:resource="http://www.example.com/satellite#AttitudeCtrl001_mass"/>
+        <vim4:unit rdf:resource="http://iso.org/iso-80000-4.1#kilogram"/>
+        <vim4:hasDoubleNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double">12.0</vim4:hasDoubleNumber>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#CommCtrl001 -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#CommCtrl001">
+        <rdf:type rdf:resource="http://www.example.com/satellite#CommunicationController"/>
+        <componentID>CC001</componentID>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#CommCtrl001_mass -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#CommCtrl001_mass">
+        <rdf:type rdf:resource="http://bipm.org/jcgm/vim4#IndividualUnitaryQuantity"/>
+        <vim4:characterizes rdf:resource="http://www.example.com/satellite#CommCtrl001"/>
+        <vim4:instantiates rdf:resource="http://iso.org/iso-80000-4.1#mass"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.example.com/satellite#CommCtrl001_mass_value -->
+
+    <owl:NamedIndividual rdf:about="http://www.example.com/satellite#CommCtrl001_mass_value">
+        <rdf:type rdf:resource="http://bipm.org/jcgm/vim4#UnitaryQuantityValue"/>
+        <vim4:isAttributedTo rdf:resource="http://www.example.com/satellite#CommCtrl001_mass"/>
+        <vim4:unit rdf:resource="http://iso.org/iso-80000-4.1#kilogram"/>
+        <vim4:hasDoubleNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double">8.0</vim4:hasDoubleNumber>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+

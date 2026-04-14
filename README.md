@@ -1,65 +1,158 @@
-# Model Management Challenge: Satellite Configuration
+# Model Management Challenge 2026 -- Satellite Configuration
 
 Welcome to the Satellite Configuration Model Management Challenge! This challenge uses a simplified satellite configuration scenario to explore common problems in managing interconnected engineering artifacts.
 
-# Case Description
+## Introduction
 
-Different artefacts contribute to the development and management of complex engineered (cyber-physical) systems. We are inspired by a recent visit to the [Royal Belgian Institute for Space Aeronomy (BIRA-IASB)](https://www.aeronomie.be) in the design of the artefacts of this challenge. The artefacts revolve around a satellite design and configuration case study. Examples associated with the configuration of aeronautical systems have also been used before, for example, in the tutorials for the Ontological Modelling Language ([OML tutorials](https://www.opencaesar.io/oml-tutorials/)).
+Model-Based Systems and Software Engineering (MBSSE) provides a systematic and holistic approach to support the full lifecycle of complex systems. Across this lifecycle, numerous models are both produced and consumed at different stages. These models naturally span multiple levels of abstraction, rely on diverse formalisms, and are supported by a wide range of languages and tools.
 
-## Artefacts
+Model Management (MoM) encompasses the set of software-intensive activities dedicated to the organisation, coordination, evolution, and governance of these models throughout the system lifecycle. Among these activities, *model consistency* plays a central role, ensuring that heterogeneous software artefacts remain synchronised, accurate, and semantically valid over time. Beyond consistency, MoM addresses a broader spectrum of concerns that are critical in modern engineering contexts, where the development of complex systems involves multiple domains, each governed by specific practices and stringent standards.
 
-The artefacts for the satellite configuration model management challenge are available in this [public GitHub repository](https://github.com/mom-challenge/challenge-2025).
+The MoM Challenge is designed to explore these limitations by fostering a clearer understanding of existing approaches, their assumptions, and their technical specificities. It aims to enable systematic comparison of tools and frameworks, while contributing to the emergence of common foundations and reusable techniques for MoM.
 
-In complex systems engineering -- designs, requirements, analyses, and reports are often spread across various files and formats, with semantics expressed in different (modelling) languages. Keeping these artefacts consistent, traceable, and up-to-date is a significant challenge. This set of example artefacts is designed to highlight these issues.
+## Case Description -- Satellite Configuration
 
-- **Part catalogue** (`ontology.owl`): We provide an [OWL](https://www.w3.org/TR/owl2-overview/) (Web Ontology Language) file defining a vocabulary for satellite components. It specifies types of components (e.g., *ThrusterComponent*, *SolarPanelComponent*) and their properties (e.g., *hasMass* and *componentID*). It also contains individuals (specific instances of components) with their assigned mass values. The ontology (and corresponding knowledge graph) acts as a product/part catalogue and additionally establishes a common terminology for the various stakeholders of the system, and for the current challenge.
+The challenge is based on a representative use case inspired by a visit to the [Belgian Royal Institute for Space Aeronomy (BIRA-IASB)](https://www.aeronomie.be), focusing on satellite design and configuration. In this context, the development of satellite software must demonstrate compliance with certification standards such as DO-178C, which defines objectives for software lifecycle processes, prescribes associated activities, and specifies the work products required to provide evidence of compliance.
 
-- **System Decomposition / Architecture** (`system_config.json`): We provide a [JSON](https://www.json.org/json-en.html) file describing a specific satellite configuration, named *SatAlphaV1*. It lists the components used in this configuration, their quantities, and their individual masses (which should be consistent with the part catalogue file). It also includes a *calculated_total_mass_kg* property which is the sum of all parts that a system or sub-system is composed of. This specification essentially defines a 'bill of materials' for a specific system instance and aggregates properties like total mass, while also describing the architectural system decomposition.
+For the purpose of this challenge, we adopt a simplified perspective on these normative requirements and focus on two key characteristics that are particularly relevant to MoM. First, *traceability* ensures that all requirements are properly implemented, while avoiding the introduction of superfluous or unrelated artefacts. Second, *configuration management* guarantees the integrity and reproducibility of the system by enabling precise tracking of versions, supporting impact analysis, and facilitating controlled evolution in response to detected issues.
 
-- **Requirements Specification** (`requirements.csv`): We provide a CSV (Comma Separated Values) file outlining design requirements for the satellite system. For example, it specifies a maximum allowable total system mass (*REQ001*) and a maximum allowable mass for any single component (*REQ002*). Such a specification serves to describe constraints that the system design must satisfy.
+In addition, a critical aspect of such regulated environments is the enforcement of *independence* between teams. This includes, in particular, the separation between teams responsible for the production and the verification of artefacts. Two requirements follow from this context:
 
-- **Generated Report** (`report.md`): We provide a Markdown file summarizing the *SatAlphaV1* system's properties and the verification results of the specified requirements from the requirements specification. The report is a means to provide a human-readable format of the results of validation of the system design for the non-technical stakeholders of the engineering organization.
+1. **Autonomy of respective activity lifecycles.** To preserve independence and foster trust, existing engineering practices, development processes, and tools adopted by organisations should not be interfered with. Proposed MoM solutions are therefore expected to integrate with these practices without constraining or redefining them.
 
-Note that we aimed to provide the artefacts in the simplest format with the semantics as described above. If your tool or framework does not support the above formats, you are free to re-implement the above artefacts in a format/notation/language of your choice, while respecting the same semantics. We invite you to contribute such new artefacts to the challenge Git repository via a pull request.
+2. **Preservation of existing formalisms and formats.** As a direct corollary, the tools and the formats they rely on to persist information should remain unchanged. Solutions should operate across heterogeneous artefacts without requiring intrusive transformations.
 
-In the following section, we describe the model management scenarios of this challenge, without committing to any specific file/artefact format.
+A degree of flexibility is allowed: when a format cannot be directly processed by a given solution (e.g., a `.csv` file), a semantically equivalent representation may be used (e.g., an `.xlsx` encoding of the same data).
 
-## Model Management Scenarios
+### High-Level Description of the System
 
-1. **Change Impact & Consistency**
+At early design stages, the satellite system is defined in a preliminary configuration, denoted `SatAlpha`, which satisfies only minimal functional requirements. In particular, the total mass of the system must remain below a threshold compatible with mission constraints. An initial prototyping phase produces five artefacts spanning five engineering areas:
 
-   The mass of a component defined in the part catalogue changes. In this scenario, the mass of the thruster component changes, because of a change in fuel that is needed for longer flights. Therefore, the *MainThruster001* (with ID *T001*), originally 150.5 kg, is found to be heavier, now weighing 165.0 kg.
+- **Parts Catalogue** (`catalogue.owl`): The manufacturer of the individual parts provides a catalogue represented as an OWL ontology that provides a shared and standardised vocabulary for all stakeholders. The knowledge graph specifies the structure of components and their properties, as well as individuals (i.e., instances). Mass is modelled using a subset of the VIM4 metrology ontology and ISO 80000-4.1 (kilogram).
 
-   - Consequently, the *mass_kg_per_unit* for component *T001* in the architecture specification needs to be updated to 165.0.
-   - Consequently, the *calculated_total_mass_kg* in the architecture specification needs to be recalculated and updated.
+- **Bill of Materials** (`bom.json`): Engineers define a system decomposition model that captures the structural composition of the system. This model enumerates the constituent components, their quantities, and per-unit masses. It also includes a derived `calculated_total_mass_kg` field.
 
-2. **Unified Querying & Validation**
+- **Network Topology** (`comm-network.json`): The communications engineering team maintains a viewpoint-specific model describing the communications subsystem as a directed graph of nodes (components) and links (connections with protocol annotations).
 
-   We need to verify that the current *SatAlphaV1* configuration, as defined in the architecture specification, meets the mass requirement *REQ001* (total system mass ≤ 350 kg) described in the requirements specification.
+- **Requirements Specification** (`requirements.csv`): A design requirements specification captures the functional requirements associated with the system, in particular constraints related to component masses that ensure mission feasibility.
 
-   - The report should reflect this verification.
-   - If the *calculated_total_mass_kg* in the architecture specification is (automatically or manually) updated to 355.4 kg (due to the component change from the previous scenario), the requirement is **NOT SATISFIED**. This needs to be updated in the report.
+- **Report** (`report.md`): A report is produced for documentation, human analysis, and certification purposes. It summarises the architectural elements and assesses whether the global mass constraint is satisfied.
 
-3. **Generation of Views**
+Within the scope of the challenge, a reference version of all artefacts is made available in a [Zenodo repository](https://doi.org/10.5281/zenodo.15285131). Contributors are allowed to re-implement these artefacts using alternative formats, notations, or languages, provided that semantic equivalence is preserved. Re-implemented artefacts may be contributed to the [GitHub repository](https://github.com/mom-challenge/satellite-config) via pull requests (see [CONTRIBUTING.md](CONTRIBUTING.md)).
 
-   The architecture decomposition artefact presented in the previous section describes the complete set of systems, subsystems, and components in the satellite payload. However, engineers typically focus on their specific views, and their individual view-point-specific contributions contribute to the whole satellite. Let's say there is a communications engineer who is only concerned with the communication subsystem, and would like to only *see* the *part* of the satellite associated with the communications viewpoint.
+The table below summarises the correspondence between engineering areas, produced models, and their associated file names.
 
-   - For the UI of the communications engineer, the irrelevant subsystems should be abstracted out and only the relevant ones presented.
-   - If the communications engineer modifies a component in the communications subsystem (let's say, adds a new *AntennaComponent* with ID *ANT002*), from the communications view, that change needs to be reflected in the total system architecture.
+| Engineering Area | Model | File Name |
+|---|---|---|
+| Knowledge Engineering / Manufacturer | Parts Catalogue | `catalogue.owl` |
+| Systems Engineering | Bill of Materials | `bom.json` |
+| Communications Engineering | Network Topology | `comm-network.json` |
+| Requirements Engineering | Requirements Specification | `requirements.csv` |
+| Verification / Documentation | Report | `report.md` |
 
-4. **Versioning**
+### Repository Structure
 
-   The versioning scenario consolidates some and depends on the previously described scenarios:
+The repository contains two versioned snapshots of the artefact set, organised by engineering role:
 
-   The update to *MainThruster001*'s mass (from 150.5 kg to 165.0 kg in the product catalogue) is a significant design change. This implies that, *product_catalogue_v1* effectively becomes *product_catalogue_v2*. This also triggers a change in the architecture specification as described in the change impact scenario (scenario 1). This also potentially impacts and necessitates an update to the report (scenario 2). Consequently, the view may also need to be updated if the *MainThruster001* component is relevant for the viewpoint of a hypothetical propulsion engineer (scenario 3).
+```
+v1/
+  manufacturer/           catalogue.owl      (Parts Catalogue -- baseline)
+  systems_engineer/       bom.json           (Bill of Materials -- baseline)
+  communications_engineer/comm-network.json  (Network Topology -- baseline)
+  requirements_engineer/  requirements.csv   (Requirements Specification)
+  verification_engineer/  report.md          (Report -- REQ001 SATISFIED, 322.0 kg)
 
-   - The lineage of different versions of the same artefact (*product_catalogue_v1* becomes *product_catalogue_v2*, *architecture_specification_v1* becomes *architecture_specification_v2*, *report_v1* becomes *report_v2*) should be tracked.
-   - The reasons for creation of a new version of the dependent artefacts (in this case, the architecture specification and report) should be tracked as well (i.e., why was a new version *architecture_specification_v2* and *report_v2* created?).
+v2/
+  manufacturer/           catalogue.owl      (after MT.1: thruster mass 85.0 → 95.0 kg)
+  systems_engineer/       bom.json           (after MT.1 + MT.2: ANT002 added, 357.0 kg)
+  communications_engineer/comm-network.json  (after MT.2: ANT002 node and link added)
+  requirements_engineer/  requirements.csv   (unchanged)
+  verification_engineer/  report.md          (Report -- REQ001 NOT SATISFIED, 357.0 kg)
+```
 
-5. **Collaboration**
+- **`v1/`** contains the baseline artefacts. The total system mass is 322.0 kg and `REQ001` (total mass ≤ 350 kg) is **SATISFIED**.
+- **`v2/`** contains artefacts after the modifications described in MT.1 and MT.2 have been applied:
+  - **MT.1**: The manufacturer reassesses the thruster mass from 85.0 kg to 95.0 kg in the Parts Catalogue. This is propagated to the Bill of Materials.
+  - **MT.2**: The communications team adds a backup antenna (`ANT002`) in the Network Topology. This is reflected in the Bill of Materials.
+  - As a result, the total system mass becomes 357.0 kg and `REQ001` is **NOT SATISFIED**. `v2` therefore represents a *broken state* that challenge participants must reason about.
 
-   Let's say there are 2 communications engineers working concurrently on the satellite design and they independently make conflicting changes to the satellite communications subsystem. Engineer 1 renames *Antenna Component* with id *ANT001* to *ANT003*, whereas Engineer 2 deletes the antenna with ID *ANT001*.
+### Model Management Scenarios
 
-   - The engineers need live collaboration to visualize changes made by each other in real-time; in such a scenario, possibly these conflicts will not occur in the first place.
-   - However, if conflicting (offline) changes are made by the engineers, they need to be handled and possible reconciliation strategies should be suggested.
+We define three Engineering Scenarios (ES) that are encountered during the design of the hypothetical satellite system.
 
+- **ES.1** -- The part manufacturer revises the mass of the thruster in the part catalogue, which must be propagated to the bill of materials and report.
+- **ES.2** -- The communications engineering team requires a communications-centric view focused on the components under their viewpoint, along with the ability to apply rapid modifications. They want to add a second backup antenna. Changes must be reflected in the bill of materials and report.
+- **ES.3** -- Additional members are assigned to the design team, leading to concurrent and collaborative editing of shared artefacts.
+
+We describe the MoM Tasks (MT) needed to support the Engineering Scenarios.
+
+---
+
+**MT.1 -- Change Impact & Reconciliation [ES.1]**
+
+The change request in ES.1 consists of updating the value of mass of thruster component `T001` from `85.0` to `95.0 kilograms` in the Parts Catalogue, while preserving all other attributes.
+
+1. How is the change in the Parts Catalogue detected?
+2. Which mechanisms or processes ensure propagation of this change to the Bill of Materials?
+3. Is the propagation automatic, semi-automatic, or manual?
+4. Can the propagation strategy be parameterised (to happen semi-/automatically)?
+5. At which granularity does propagation operate (e.g., element, feature, model)?
+6. Can an explicit structure (e.g., graph, tree) be computed to represent impacted elements?
+7. Can such structures be composed across multiple changes, and how deeply can they be inspected?
+
+---
+
+**MT.2 -- Views Management [ES.2]**
+
+Views may range from simple filtered projections to fully materialised models. In ES.2, a communications engineer, using a view of the communications sub-system, renames the existing `ANT001` component *Antenna* to *AntennaPrimary* and adds a new `ANT002` component called *AntennaBackup*.
+
+1. Can model elements or types be selectively filtered on demand? On which criteria (e.g. only some predefined element types)?
+2. Can filtering rules be specified declaratively (e.g., via a query language)?
+3. Can views be systematically derived from conformance models? How?
+4. Are views themselves typed (e.g., via a metamodel)?
+5. How are changes in views reconciled with the source model?
+6. How are views notified of changes in the source model?
+7. Do source model changes automatically propagate to views? How?
+
+---
+
+**MT.3 -- Querying & Validation [ES.1--2]**
+
+The modifications in MT.1--2 affect the derived value `calculated_total_mass_kg` in the Bill of Materials. As a result, Requirement `REQ001` is violated, since the total mass exceeds the threshold of `350 kilograms`. The Report must reflect this violation.
+
+1. Is `calculated_total_mass_kg` automatically updated after the change?
+2. Which mechanisms or processes support this update?
+3. Does it require manual intervention?
+4. Can the process be fully automated or parameterised?
+5. Is the updated status reflected in the Report?
+6. Can impact analysis be performed manually by querying all relevant models?
+
+---
+
+**MT.4 -- Concurrent Modifications [ES.3]**
+
+Concurrent editing without a predefined editing policy may introduce conflicts. For example, one communication engineer performs the modifications described in MT.2, whereas another engineer **concurrently** deletes the existing `ANT001` component *Antenna* and adds two new `ANT002` components called *AntennaPrimary* and *AntennaBackup*.
+
+1. How are conflicts resolved: manual vs. (semi-)automatic, online vs. offline, configurable vs. fixed strategies?
+2. Are changes propagated in real time or through explicit synchronisation?
+3. If concurrent conflicting modifications are prevented, which mechanisms or policies detect and avoid such conflicts?
+4. Does the tool support live collaborative modelling? If so, how are conflicts visualised, prevented, or resolved?
+
+---
+
+**MT.5 -- Version Management [ES.1--3]**
+
+The modifications described in MT.1, MT.2, and MT.4 affect multiple artefacts and activities. In a certification context, new baselines must be explicitly defined and justified. This task addresses traceability across versions.
+
+1. What is the definition of a "*version*" (single artefact, dependency closure, or system-wide state)?
+2. Are versions created automatically or explicitly (e.g., commit-based)?
+3. How are artefacts linked across versions (e.g., traceability links between instances)?
+4. Can versions be enriched with metadata?
+5. Are such metadata queryable and exploitable?
+6. Can the rationale for version creation be captured and maintained?
+
+---
+
+## Submitting a Solution
+
+See [SOLUTION.md](SOLUTION.md) for the expected structure and evaluation criteria for solution submissions.
