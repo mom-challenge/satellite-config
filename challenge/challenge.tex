@@ -1,0 +1,743 @@
+\documentclass{article}
+\usepackage{PRIMEarxiv}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+
+\usepackage{graphicx}       % graphics
+\graphicspath{{media/}}     % organize your images and other figures under media/ folder
+
+\usepackage[skip=0.5\baselineskip]{caption}
+\captionsetup[table]{skip=10pt,labelfont=bf}
+
+\usepackage[inline]{enumitem}
+%\usepackage{times}
+\usepackage{hyperref}
+\usepackage{todonotes}
+\usepackage{csquotes}
+\usepackage{tcolorbox}
+\usepackage{footnote}
+\hypersetup{
+pdfborder={0 0 0}
+}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,shapes.geometric}
+\usepackage{float}
+%\newcommand{\pcmember}[3]{\item #2 #1, #3}
+
+\newcommand*{\SG}[1]{{\color{magenta}#1}}
+\newcommand*{\MA}[1]{{\color{magenta}#1}}
+\newcommand*{\RM}[1]{{\color{magenta}#1}}
+
+%Header
+\pagestyle{fancy}
+\thispagestyle{empty}
+\rhead{ \textit{ }} 
+
+% Update your Headers here
+%\fancyhead[LO]{Running Title for Header}
+% \fancyhead[RE]{Firstauthor and Secondauthor} % Firstauthor et al. if more than 2 - must use \documentclass[twoside]{article}
+
+
+%% Title
+\title{A template for Arxiv Style
+%%%% Cite as
+%%%% Update your official citation here when published 
+\thanks{\textit{\underline{Citation}}: 
+\textbf{Authors. Title. Pages.... DOI:000000/11111.}} 
+}
+
+\author{
+  Rakshit Mittal\\
+  University of Antwerp - Flanders Make\\ Antwerp, Belgium\\
+  \texttt{Rakshit.Mittal@uantwerpen.be} \\
+  %% examples of more authors
+   \And
+  Moussa Amrani\\ \textbf{Dominique Blouin}\\
+  Télécom Paris\\Institut Polytechnique de Paris, France\\
+  %\\
+  \texttt{[Moussa.Amrani, Dominique.Blouin]@telecom-paris.fr} \\
+   \AND
+  Sylvain Guérin\\
+  IMT Atlantique, Brest, France\\
+  %\\
+  \texttt{Sylvain.Guerin@imt-atlantique.fr} \\
+   \And
+   Arne Lange, Thomas Weber\\
+   Karlsruhe Institute of Technology, Germany\\
+   \texttt{[Arne.Lange, Thomas.Weber]@kit.edu}
+}
+
+
+
+
+\begin{document}
+
+\title{Model Management (MoM) Challenge 2026}
+
+\maketitle
+
+% Inspired by the MULTI level challenge
+% https://homepages.ecs.vuw.ac.nz/foswiki/pub/Groups/MultiLevelModeling/MultiPublications/EMISAJ_Process_Modeling_Challenge.pdf
+% Paper proposing nice definitions of MoM approaches
+%https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7321154
+
+\vspace{-1cm}
+\begin{abstract}
+This challenge is intended to allow the demonstration of Model Management (MoM) techniques and enable the comparison of submissions, and hence framework/language/tools and their capabilities. The MoM community is invited to respond to this challenge with submissions describing solutions to this challenge expressed in a technology of their choice. Authors should emphasize the merits and limitations of their solution according to the criteria defined in this challenge description. This challenge aims to lay down the foundations of the theory, common techniques, and identify commonly proposed, highly expected, and still not proposed features for MoM approaches and tools.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:Introduction}
+
+Model-Based Systems and Software Engineering (MBSSE) provides a systematic and
+holistic approach to support the full lifecycle of complex systems. Across this
+lifecycle, numerous models are both produced and consumed at different stages.
+These models naturally span multiple levels of abstraction, rely on diverse
+formalisms, and are supported by a wide range of languages and tools.
+
+Model Management (MoM) encompasses the set of software-intensive activities
+dedicated to the organization, coordination, evolution, and governance of these
+models throughout the system lifecycle. Among these activities, \emph{model
+consistency} plays a central role, ensuring that heterogeneous software artifacts
+remain synchronized, accurate, and semantically valid over time. Beyond
+consistency, MoM addresses a broader spectrum of concerns that are critical in
+modern engineering contexts, where the development of complex systems involves
+multiple domains, each governed by specific practices and stringent standards.
+For instance, domains relying heavily on physical simulation require rigorous
+validation of \emph{model fidelity}, while safety-critical systems impose strict
+requirements on \emph{traceability}, \emph{configuration management}, and \emph{version control}.
+
+Over the past decades, numerous approaches have been proposed to address MoM
+challenges, including megamodeling~\cite{bezivin2004need}, model unification,
+view-based modeling~\cite{osate-dim}, multi-level modeling~\cite{megamodel}, and
+model federation~\cite{openflexo}. More recently, both academic and
+industrial initiatives (e.g.,~\cite{renault-mom,magicgrid,openmbee,opencaesar,magicdraw})
+have led to the development of advanced tools and platforms offering rich
+technical solutions. These approaches embody distinct methodological perspectives
+on how models should be structured, related, and maintained, as well as how the
+associated activities should be orchestrated to effectively support collaborative
+engineering processes.
+
+Despite these advances, existing solutions often remain tightly coupled to
+specific platforms or domains, which limits their reproducibility and
+transferability. Furthermore, the lack of shared terminology, generalized conceptual
+foundations, and standardized evaluation criteria hinders meaningful comparison
+between approaches and obstructs the reuse of underlying principles across
+contexts. As a result, similar challenges are frequently addressed in isolation,
+leading to duplicated efforts and fragmented knowledge. Notable ongoing efforts include the CASCaRa\footnote{\url{https://cascara.gfse.org}} and AUGMENT\footnote{\url{https://augment.wp.imt.fr}} projects. 
+
+The MoM Challenge is designed to explore these limitations by fostering a clearer
+understanding of existing approaches, their assumptions, and their technical
+specificities. It aims to enable systematic comparison of tools and frameworks,
+while contributing to the emergence of common foundations and reusable techniques
+for MoM. Beyond a competitive setting, the Challenge serves as a
+collaborative forum for researchers and practitioners to exchange perspectives,
+confront ideas, and collectively identify both established capabilities and
+emerging requirements for the next generation of MoM solutions.
+
+
+\section{Case Description -- Satellite Configuration}
+\label{sec:CD}
+
+The challenge is based on a representative use case inspired by a visit to
+the Belgian Royal Institute for Space Aeronomy 
+(BIRA-IASB)\footnote{\url{https://www.aeronomie.be}}, focusing on satellite design and configuration. 
+In this context, the development of satellite software must demonstrate compliance 
+with certification standards such as DO-178C \cite{do-178C}, which defines objectives for software 
+lifecycle processes, prescribes associated activities, and specifies the work 
+products required to provide evidence of compliance.
+
+For the purpose of this challenge, we adopt a simplified perspective on these
+normative requirements and focus on two key characteristics that are particularly
+relevant to MoM. First, \emph{traceability} ensures that all
+requirements are properly implemented, while avoiding the introduction of
+superfluous or unrelated artifacts. Second, \emph{configuration management}
+guarantees the integrity and reproducibility of the system by enabling precise
+tracking of versions, supporting impact analysis, and facilitating controlled
+evolution in response to detected issues.
+
+In addition, a critical aspect of such regulated environments is the enforcement
+of \emph{independence} between teams. This includes, in particular, the separation
+between teams responsible for the production and the verification of artifacts, as
+well as between those defining requirements and those implementing them. This
+separation is essential to ensure unbiased validation, and to comply with
+certification constraints.
+
+\begin{enumerate}[leftmargin=*]
+	\item \textbf{Autonomy of respective activity lifecycles.} To preserve 
+   independence and foster trust, existing engineering practices, development 
+   processes, and tools adopted by organizations should not be interfered with. 
+   Proposed MoM solutions are therefore expected to integrate with these practices 
+   without constraining or redefining them.
+
+   \item  \textbf{Preservation of existing formalisms and formats.} As a direct
+   corollary, the tools and the formats they rely on to persist information 
+   should remain unchanged. Solutions should operate across heterogeneous 
+   artefacts without requiring intrusive transformations.
+\end{enumerate}
+
+The context of certification in this use case explains the importance of these
+requirements. Tooling choices and associated processes are subject to validation
+by certification authorities, and produced artefacts may contribute directly to
+the compliance evidence chain. Nevertheless, within the scope of this challenge,
+a degree of flexibility is allowed: when a format cannot be directly processed
+by a given solution (e.g., a \textsf{.csv} file), a semantically equivalent
+representation may be used (e.g., an \textsf{.xlsx} encoding of the same data).
+
+We first describe how (a minimal and representative part of) the satellite system is modelled, before diving into the
+Engineering Scenarios that motivate MoM Tasks.
+
+%Different artefacts contribute to the development and management of complex engineered (cyber-physical) systems. We are inspired by a recent visit to the \href{https://www.aeronomie.be}{Royal Belgian Institute for Space Aeronomy (BIRA-IASB)} in the design of the artefacts of this challenge. The artefacts revolve around a satellite design and configuration case study. Examples associated with the configuration of aeronautical systems have also been used before, for example, in the tutorials for the Ontological Modelling Language\footnote{\url{https://www.opencaesar.io/oml-tutorials/}} \cite{opencaesar}. 
+
+\subsection{High-Level Description of the System}
+\label{sec:CD-SHLD}
+
+At early design stages, the satellite system is defined in a preliminary
+configuration, denoted \textsf{SatAlpha}, which satisfies only minimal functional
+requirements. In particular, the total mass of the system must remain below a
+threshold compatible with mission constraints, including launch capabilities and
+associated costs. An initial prototyping phase produces five artefacts spanning
+five engineering areas:
+
+\begin{description}
+    \item[Parts Catalogue] The manufacturer of the individual parts provides a catalogue represented as an ontology that provides a shared and standardised vocabulary for all stakeholders. The knowledge graph specifies the structure of components and their properties, as well as individuals (i.e., instances).
+   
+	\item[Bill of Materials] 
+   Engineers define a system decomposition (or architecture) model that
+   captures the structural composition of the system. This model enumerates the
+   constituent components and their properties.
+
+   \item[Network Topology]
+    Engineers define a system decomposition (or architecture) model that
+   captures the structural composition of the system. This model enumerates the
+   constituent components and their properties.
+   
+	\item[Requirements Specification] 
+   A design requirements specification captures the functional
+   requirements associated with the system, in particular constraints related to
+   component masses that ensure mission feasibility.
+
+	\item[Report] 
+   A report is produced for documentation, human analysis, and
+   certification purposes. It summarizes the architectural elements and assesses
+   whether the global mass constraint is satisfied.
+\end{description}
+
+Within the scope of the challenge, a reference version of all artefacts is made
+available in a Zenodo repository\footnote{\url{https://doi.org/10.5281/zenodo.15285131}}. We acknowledge that participating tools may not
+natively support the provided formats: contributors are therefore allowed to
+re-implement these artefacts using alternative formats, notations, or languages,
+provided that semantic equivalence is preserved. Re-implemented artefacts may be
+contributed to the GitHub repository\footnote{\url{https://github.com/mom-challenge/satellite-config}} \emph{via} pull requests.
+
+Table~\ref{tab:Models-File} summarizes the correspondence between engineering
+areas, produced models, and their associated file names in the Repository.
+Appendix~\ref{app:Description} provides a detailed description of each model to
+ensure semantic alignment across re-implementations.
+
+\begin{table}[t]
+\centering
+\caption{Correspondence between engineering areas, produced models, and their associated file names. File extensions may vary depending on the representation format.}
+\label{tab:Models-File}
+\centering
+\begin{tabular}{lll}
+\hline
+\textbf{Engineering Area} & \textbf{Model} & \textbf{File Name} \\
+\hline
+Knowledge Engineering / Manufacturer & Parts Catalogue & \texttt{catalogue.owl} \\
+Systems Engineering & Bill of Materials & \texttt{bom.json} \\
+Communications Engineering & Network Topology & \texttt{comm-network.json} \\
+
+Requirements Engineering & Requirements Specification & \texttt{requirements.csv} \\
+Verification / Documentation & Report & \texttt{report.md} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+\subsection{Model Management Scenarios}
+\label{sec:CD-MoMS}
+
+We define three Engineering Scenarios (ES) that are encountered during the design of the hypothetical satellite system.
+
+\begin{enumerate}[label=\textbf{ES.\arabic*}, leftmargin=*]
+   \item The part manufacturer revises the mass of the thruster in the part catalogue,
+   which must be propagated to the bill of materials and report.
+
+   \item The communications engineering team requires a communications-centric view
+   focused on the components under their viewpoint, along with the ability
+   to apply rapid modifications. They want to add a second backup antenna. Changes must be reflected in the bill of materials and report.
+
+   \item Additional members are assigned to the design team, leading to
+   concurrent and collaborative editing of shared artefacts.
+\end{enumerate}
+
+We describe the MoM Tasks (MT) needed to support the Engineering Scenarios
+[indicating which ES they relate to].
+
+\begin{enumerate}[label=\textbf{MT.\arabic*}, leftmargin=*]
+\item \textbf{Change Impact \& Reconciliation [ES.1].}  
+   The change request in ES.1 consists of updating the value of mass of thruster component \textsf{T001} from \textsf{85.0} to
+   \textsf{95.0 kilograms} in the Parts Catalogue, while preserving all other attributes.
+
+   \begin{enumerate}[label=\textbf{\arabic*.}]
+      \item How is the change in the Parts Catalogue detected?
+      \item Which mechanisms or processes ensure propagation of this change to 
+      the Bill of Materials?
+      \item Is the propagation automatic, semi-automatic, or manual?
+      \item Can the propagation strategy be parameterised (to happen semi-/automatically)?
+      \item At which granularity does propagation operate (e.g., element, feature, model)?
+      \item Can an explicit structure (e.g., graph, tree) be computed to represent 
+      impacted elements?
+      \item Can such structures be composed across multiple changes, and how deeply can they be inspected?
+   \end{enumerate}
+
+   \item \textbf{Views Management [ES.2].}  
+   Views may range from simple filtered projections to fully materialised
+   models. In ES.2, a communications engineer, using a view of the communications sub-system renames the existing \textsf{ANT001} component \textit{Antenna} to \textit{AntennaPrimary} and adds a new \textsf{ANT002} component called \textit{AntennaBackup}.
+
+   \begin{enumerate}[label=\textbf{\arabic*.}]
+      \item Can model elements or types be selectively filtered on demand? On which
+      criteria (e.g. only some predefined elements types like MOF operations, etc.)?
+      \item Can filtering rules be specified declaratively (e.g., via a query language)?
+      \item Can views be systematically derived from conformance models? How?
+      \item Are views themselves typed (e.g., via a metamodel)?
+      \item How are changes in views reconciled with the source model?
+      \item How are views notified of changes in the source model?
+      \item Do source model changes automatically propagate to views? How?
+   \end{enumerate}
+
+   \item \textbf{Querying \& Validation [ES.1--2].}  
+   The modifications in MT.1--2 affect the derived value
+   \textsf{calculated\_total\_mass\_kg} in the Bill of Materials. As a result,
+   Requirement \textsf{RQ001} is violated, since the total mass exceeds the
+   threshold of \textsf{350 kilograms}. The Report must reflect this violation\footnote{MT.3
+   differs from MT.1--2: MT.1--2 address \emph{intentional} changes and their direct impact, 
+   whereas MT.3 concerns \emph{derived values} that should be queried from multiple formats and \emph{automatically}
+   recomputed to ensure correctness.}.
+
+   \begin{enumerate}[label=\textbf{\arabic*.}]
+      \item Is \textsf{calculated\_total\_mass\_kg} automatically updated after the change?
+      \item Which mechanisms or processes support this update?
+      \item Does it require manual intervention?
+      \item Can the process be fully automated or parameterised (to happen automatically,
+      or for some cases, kept intentionally manual)?
+      \item Is the updated status reflected in the Report?
+      \item Can impact analysis be performed manually by querying all relevant models?
+   \end{enumerate}
+   
+   \clearpage
+   \item \textbf{Concurrent Modifications [ES.3].}  
+   Concurrent editing without a predefined editing policy may introduce conflicts. For example, one communication engineer performs the modifications described in MT.2, whereas another engineer \textbf{concurrently} deletes the existing \textsf{ANT001} component \textit{Antenna} and adds two new \textsf{ANT002} components called \textit{AntennaPrimary} and \textit{AntennaBackup}. 
+
+   \begin{enumerate}[label=\textbf{\arabic*.}]
+      \item How are conflicts resolved: manual vs.\ (semi-)automatic, 
+      online vs.\ offline, configurable (depending on who, what, how modifications
+      occurred) vs.\ fixed (i.e. predefined) strategies?
+      \item Are changes propagated in real time or through explicit synchronization?
+      \item If concurrent conflicting modifications are prevented, which mechanisms 
+      or policies detect and avoid such conflicts?
+      \item Does the tool support live collaborative modelling? 
+      If so, how are conflicts visualized, prevented, or resolved?
+   \end{enumerate}
+
+   \item \textbf{Version Management [ES.1--3].}  
+   The modifications described in MT.1, MT.2, and MT.4 affect multiple artefacts and activities. In a certification context, new baselines must be explicitly
+   defined and justified in a development plan. This task addresses traceability 
+   across versions.
+
+   \begin{enumerate}[label=\textbf{\arabic*.}]
+      \item What is the definition of a ``\emph{version}'' (single artefact, 
+      dependency closure, or system-wide state)?
+      \item Are versions created automatically or explicitly (e.g., commit-based)?
+      \item How are artefacts linked across versions (e.g., traceability links 
+      between instances)? 
+      \item Can versions be enriched with metadata?
+      \item Are such metadata queryable and exploitable?
+      \item Can the rationale for version creation be captured and maintained?
+   \end{enumerate}
+\end{enumerate}
+
+
+
+
+
+
+\section{Presenting your Solution}
+\label{sec:CS}
+
+This section specifies the expected structure and evaluation dimensions for Solution submissions. A Solution should describe how the proposed
+approach or tool supports the case study introduced in
+Section~\ref{sec:CD}, and how it addresses the MoM
+concerns formalized in Section~\ref{sec:CD-MoMS}.
+
+\subsection{Expected Structure of a Solution}
+\label{sec:CS-Structure}
+
+Submissions should follow a structured format to ensure comparability across
+approaches. A \LaTeX template is provided\footnote{The Solution template is available as an Overleaf
+project at \url{}.} and organized as follows:
+
+\begin{enumerate}[leftmargin=*]
+	\item \textbf{High-Level Dimensions and Functions of MoM.}  
+   Authors must position their approach with respect to the dimensions
+   introduced in Section~\ref{sec:CS-HLDF}, and describe how these are
+   supported by their tool or methodology.
+
+	\item \textbf{Responses to MTs.}  
+   For each MT defined in Section~\ref{sec:CD-MoMS}, submissions must include:
+   \begin{itemize}
+      \item A \textbf{precise and concise answer} to each question
+      (e.g., MT.1.1, MT.1.2, etc.);
+      \item A \textbf{discussion of alternative mechanisms or extensions},
+      where relevant, beyond the scope of the questions;
+      \item A \textbf{summary score} (minimum zero, maximum thirty), assigned as one point per positively
+      addressed question (partial scores may be used where appropriate). 
+   \end{itemize}
+
+	\item \textbf{Replication Package (optional but recommended).}  
+   Submissions may include a publicly accessible Replication Package,
+   enabling demonstration and validation of the proposed solution. This may
+   consist of:
+   \begin{itemize}
+      \item A Zenodo repository with complete software artefacts and execution instructions;
+      \item A containerized environment (e.g., Docker image) with pre-configured setup.
+   \end{itemize}
+   Note that a link to a GitHub or other impermanent repository is not acceptable as a replication package.
+
+	\item \textbf{Conclusion.}  
+   The conclusion should
+   \begin{itemize}
+      \item Summarize the \textbf{main strengths and limitations} of the approach;
+      \item Describe any \textbf{adaptations or assumptions} made to fit the case study;
+      \item Identify \textbf{unaddressed requirements or limitations} of the challenge;
+      \item Provide \textbf{lessons learnt} and implications for future work,
+      both for the authors and the broader MoM community.
+   \end{itemize}
+\end{enumerate}
+
+\clearpage
+\subsection{High-Level Dimensions and Functions (HDF) of MoM}
+\label{sec:CS-HLDF}
+
+To support systematic comparison, submissions must explicitly position their
+solution with respect to the following dimensions and functions of MoM.
+
+\begin{enumerate}[label=\textbf{HDF.\arabic*.}]
+
+	\item \textbf{Approach:}  
+   The ISO 14258 standard~\cite{ISO:14258-1998:2014} identifies four categories
+   of system integration: \emph{Integration}, \emph{Unification},
+   \emph{Federation}, and \emph{Hybrid}\footnote{A discussion on, and summary of, 
+   these approaches appears in \cite{amrani2024survey}.}.  
+   Authors must specify which category best characterizes their approach, or
+   justify deviations from this classification.
+
+	\item \textbf{Technological Spaces:}  
+   Authors must describe how the solution handles heterogeneity across Technological
+   Spaces~\cite{ivanov2002technological}. This dimension directly relates to
+   the requirement of preserving existing formalisms and formats (see
+   Section~\ref{sec:CD}).
+
+	\item \textbf{Relationships:}  
+   Authors must explain how relationships between artefacts are \emph{represented},
+   \emph{interpreted}, and \emph{managed}. This includes, for example,
+   traceability links, dependency structures, and version relationships.
+   They should clarify the underlying data structures, their semantics,
+   and the mechanisms enabling their exploitation.
+
+	\item \textbf{Views:}  
+   Authors must describe how users may interact with models. Do users manipulate models directly, through views, or both? Can views integrate or compose multiple models? Are filtering, projection, and/or aggregation mechanisms supported?
+   
+	\item \textbf{Collaboration:}  
+   Authors must characterize the collaboration model supported by the solution (e.g.,
+   online vs.\ offline). They should describe the underlying mechanisms
+   for concurrency control, conflict detection, and reconciliation, and
+   justify the chosen design trade-offs.
+\end{enumerate}
+
+
+
+%\bigskip
+%\noindent\textbf{Main approach used to manage a collection of models (required).} Explain the general approach followed to allow the management of the set of models of the challenge. In this sense, responses should place themselves (while justifying the rationale for doing so) into the model management categories defined by ISO 14258~\cite{ISO:14258-1998:2014}. They are \emph{integration}, \emph{unification}, \emph{federation}~\cite{amrani2024survey}, or hybrid (approaches combining more than one general approach) solutions. Solutions that do not fall into either category are also welcome, but the responses must explain how their approach differs.
+%
+%\bigskip
+%\noindent\textbf{Technological Spaces (required).} Explain how the approach deals with heterogeneity in technological spaces~\cite{ivanov2002technological}. Indeed, the MoM challenge includes operations which rely on information belonging to artefacts represented in different technological spaces (owl, json, csv, markdown, etc.). Note that responses may decide to not deal with heterogeneity and translate all artefacts to the same technological space. If this is the case, responses should also discuss the limitations of their solution.
+%
+%\bigskip
+%\noindent\textbf{Relationships (required).} Different relationships may exist between artefacts and the information contained in them. Discuss how the challenge response deals with these relationships, including representation, semantics, and management. 
+%
+%\bigskip
+%\noindent\textbf{Operations (required).} Responses must discuss how they deal with operations. This includes consistency constraints, synchronization operations, queries, etc. Dimensions to be discussed include the type of supported operations, formalisms \& languages, execution modes (e.g., batch, reactive, lazy), etc. How (if) do they keep track of dependencies between artefacts? How do they allow the specification of queries from different artefacts (possibly multi-formalism) through a unified language?
+%
+%\bigskip
+%\noindent\textbf{Views.} The interaction (between the user and MoM system) can be directly on the models (when they form a synthetic description of the system) or via views in a projective approach, or a combination of both. Additionally, views may combine different models and display specific or arbitrary filtering or aggregations. Discuss how (if) the challenge response provides view-based visualization and/or operations on models.  
+%\todo[inline]{This is tricky as views may be understood as subsets of a model, an amalgam of information from several models or just each of the models composing a given system.}
+%
+%\bigskip 
+%\noindent\textbf{Versions and Variants.} Responses must discuss how (if) they provide the possibility of tracking different versions or variants of models. 
+%
+%\bigskip
+%\noindent\textbf{Collaboration.} Responses must discuss how (if) they provide the ability for online (live) or offline collaboration (by tracking conflicting versions and providing strategies for reconciliation). 
+%
+%
+%\bigskip
+%\noindent\textbf{Further Instructions.} Additionally, responses to this challenge should highlight limitations (notably, requirements the solution does not address, if any.), list key advantages and drawbacks, describe extensions or adaptations that may have been made to the challenge description, and include a discussion on lessons learned and their implications for future work. 
+
+
+
+
+%\subsection{Scenario-specific attributes}
+%
+%\begin{enumerate}
+%\item \textbf{Change Impact and Consistency}
+%\begin{itemize}
+%\item How does your tool detect the change in the part catalogue?
+%\item What mechanisms or processes ensure that the `\emph{mass\_kg\_per\_unit}' for component `\emph{T001}' in the architecture specification is updated to 165.0?
+%\item Consequently, how does your tool recalculate and update the `\emph{calculated\_total\_mass\_kg}' in the architecture specification?
+%\end{itemize}
+%
+%\item \textbf{Unified Querying \& Validation}
+%\begin{itemize}
+%\item  How does your tool automate the check that the `\emph{calculated\_total\_mass\_kg}` from the architecture specification complies with the relevant constraint in the requirements specification?
+%\item  When the `\emph{calculated\_total\_mass\_kg}` in the architecture specification is updated to 360.0 kg, how does your tool update the report to show that `\emph{REQ001}' is now ``\emph{NOT SATISFIED}"?
+%\end{itemize}
+%
+%\item \textbf{Generation of Views}
+%\begin{itemize}
+%\item  How are the irrelevant subsystems abstracted out and only the relevant ones presented to the communications engineer, in your tool?
+%\item If the communications engineer modifies a component in the communications subsystem, from the communications view, is that change reflected in the total system architecture? If so, how does your tool do it? 
+%\end{itemize}
+%
+%\item \textbf{Versioning}
+%\begin{itemize}
+    %\item Does your tool track the lineage of different versions of the same artefact? If yes, how does it do so? 
+    %\item Does a new version of an artefact trigger a new version of dependent artefacts? Are these dependencies and reasons for creation of a new version of the dependent artefacts tracked in your tool?
+%\end{itemize}
+%
+%\item \textbf{Collaboration}
+%\begin{itemize}
+%\item First of all, how (if) does your tool support live collaboration between the engineers -- do they visualize changes made by the other user in real-time? In such a scenario where engineers work concurrently online, the scope for inconsistencies is lesser.
+%\item Is your tool able to track different versions of models concurrently by branching (or another strategy)?
+%\item Does your tool support reconciling differences between conflicting versions, and does it propose possible merge solutions? What are the solutions proposed by your tool in merging the inconsistent versions of Engineer 1 and 2?
+%\end{itemize}
+%
+%\end{enumerate}
+%
+%\section{Conclusion}
+%
+%Responses should cover:
+%\begin{itemize}
+%\item Requirements the solution does not address, if any.
+%\item Any extensions that may have been made to the case
+%description or evaluation aspects.
+%\item Advantages and drawbacks of the presented solution.
+%\item Advantages and drawbacks of the presented MoM approach that may not be evident in the solution to the
+%challenge but are worth mentioning.
+%\item Lessons learned and their implications for future work.
+%\end{itemize}
+ 
+% The following functionalities are tested by the concrete scenario descriptions given below. Please describe the capabilities of your tool on a high abstraction level following the dimensions given here, and on a more concrete implementation level following the scenarios below.
+
+
+
+% \subsection{Scenario-specific Attributes}
+% The points here summarize the description of the scenario to easily assess and compare the submissions.
+
+% \begin{enumerate}
+%     \item \textbf{Technical Space:} Your tool is able to interact, i.e., read information from and write information to, with the following artefacts:\todo{Be more abstract}
+%     \begin{itemize}
+%         \item ontology.owl (part catalogue)
+%         \item system\_config.json ()
+%         \item requirements.csv (requirements specification)
+%         \item report.md
+%     \end{itemize}
+%     \item \textbf{Consistency:} Your tool is able to
+%     \begin{enumerate}
+%         \item Register change, i.e., after a change was made to the interactable entities (usually models or views), your tool knows about the change
+%         \item Classify change, i.e., your tool can distinguish different types of changes
+%         \item React to change, i.e., your tool can execute operations in reaction to the changes, e.g., to restore the consistency between models
+%     \end{enumerate}
+%     \item \textbf{Views:} Your tool is able to 
+%     \begin{enumerate}
+%         \item Display information from a model to a user, e.g., by providing the model itself or a copy of it to the user
+%         \item Provide a changeable representation of the models. This does not necessitate, that your tool itself provides the model, it could also be provided by the operating system and your tool fetches changes from there as well.
+%         \item Display an arbitrary aggregation of information from different models to a user
+%         \item Provide changeable arbitrary views
+%     \end{enumerate}
+% \end{enumerate}
+
+
+% \todo[inline]{Maybe it would be interesting to "name" the requirements more explicitly, e.g. rq1, rq2, etc, so that challenge respondents can refer to these names in their submissions. }
+
+% \todo[inline]{Some of the requirements are written as... requirements, but others are written as tool capability questions. I believe the style should be more uniform. Everything here should be written as a requirements. Then respondents will discuss each requirement w.r.t. their tool}
+
+% \subsubsection*{Change Propagation}
+% \begin{enumerate}
+%     \item Change \textit{mass\_kg\_per\_unit} for \textit{T001} in \textit{ontology.owl} to \textit{165.0kg}.
+%     \item Is the value \textit{calculated\_total\_mass\_kg} in \textit{system\_config.json} correctly updated after triggering your tool?
+%     \item Is the analysis result of \textit{REQ001} in \textit{report.md} correctly updated (i.e., to \enquote{NOT SATISFIED})?
+% \end{enumerate}
+
+% \subsubsection*{Rule Adaption}
+% \begin{enumerate}
+%     \item Add a new requirement \textit{REQ003}:\textit{Every satelite needs at least one solar panel.} to \textit{requirements.csv}.
+%     \item Is the value of the new requirement calculated automatically? If not, what are the steps to calculate it automatically?
+% \end{enumerate}
+
+% \subsubsection*{Versions and Variants}
+% \begin{enumerate}
+% \item Tool capability:
+% \begin{enumerate}
+%     \item Can your tool switch between different versions or variants of a model?
+%     \item Can your tool load \textit{ontology.owl} with \textit{mass\_kg\_per\_unit} for \textit{T001} set to \textit{150.0kg} (the initial version), and then switch to the version with \textit{165.0kg}?
+% \end{enumerate}
+% \item Usability
+%     \begin{enumerate}
+%         \item Can a user switch between different \textbf{versions} of an artefact? If so, how can the user switch? Please explain with \textit{system\_config.json}.
+%         \item Can a user switch between different \textbf{variants} of an artefact? If so, how can the user switch? Please explain with \textit{system\_config.json}.
+%     \end{enumerate}
+    
+% \end{enumerate}
+
+
+
+%\section{Solution Presentation Requirements}
+%\label{sec:SolutionPresentation}
+
+
+
+% \subsection{Mandatory discussion aspects}
+
+% \todo{If we do as in the multi-level challenge, this should be an explicit list of \emph{requirements}. One per dimension I guess.}
+
+% \subsubsection{Consistency:}
+% \begin{itemize}
+%     \item c1:
+%     \item c2: some semantic rich syncro may be interesting...
+% \end{itemize}
+
+% \subsubsection{View creation and management:}
+% \begin{itemize}
+%     \item v1: E.g., create a concept that shows aggregate informations for a sensor
+%     \item v2: Derive a view that filters out some kind of data?
+%     \item v3:
+% \end{itemize}
+
+% \subsubsection{}
+
+% \subsection{Technological spaces}
+
+% \subsection{Versioning}\todo[inline]{this is optional}
+
+% \subsection{Recommended discussion aspects}
+
+% \section{Conclusions}
+
+% Submissions should cover:
+% \begin{itemize}  
+% \item  Requirements the solution does not address, if any.
+% \item  Any extensions that may have been made to the case
+% description or evaluation aspects.
+% \item  Advantages and drawbacks of the presented solution.
+% \item  Advantages and drawbacks of the presented MoM ap-
+% proach that may not be evident in the solution to the
+% challenge but are worth mentioning.
+% \item  Lessons learned and their implications for future work.
+% \end{itemize}
+
+
+% \appendix
+
+% \section{This is what we write in the workshop proposal : Challenge (Half-)Day}
+
+% The participants will start with a common, high-level description of a MoM use case including some typical scenarios for evolving models, and extracting
+% views, while keeping heterogeneous models consistent (typically, through synchronization). Each paper should present a tool, and demonstrate its capabilities wrt. MoM features: editing models, interoperating heterogeneous technical spaces, extracting and syncing views, managing consistency, handling traceability, etc. The focus is then on how the tool handles, and solves the challenge, rather than the general tool's features. The goal is to learn from experience what MoM features are, and which are indeed currently available/implemented in tools. 
+
+% \textbf{Evaluation Process:} At least three reviewers will evaluate each submission, judging the adequation of the paper's description with the challenge's requirements. 
+% \\
+% \textbf{Intended Challenge Format:} We expect no more than 5--7 contributions,
+% but we would like to keep time to let participants do live demos, discuss, and 
+% learn from each others, and synthesize the results. 
+% Additionally, we would like to foster collaboration to advance the state of tooling in academia through discussion sessions.
+% We therefore request only 
+% half a day, preferably immediately before, or after, the main full-day event.
+% \\   
+% \textbf{Expected Participants Number} 5-15.
+% \\
+% \textbf{Equipment} Whiteboard and projector.
+
+% %\todo{MA: IMHO, we do not need to actually describe the challenge. Rather, the Workshop Organisers PC will look at whether it is an interesting fit to MoDELS wrt. other workshops, and how it actually complements the main event. However, this material should be succinctly described in the CfP... But more importantly, it should be ready minimum 2 months before MoDELS' Workshop deadlines. \textbf{My question (as raised by email as well:}  \textit{Should we include the  Challenge CfP as well?} => IMO, yes... if it's ready on time!}
+
+
+% The mandatory discussion aspects of the challenge are divided into three dimensions.
+% % each with different discussion criteria. 
+% Not all dimensions have to be implemented for a submission to this challenge. While we appreciate and favor real demonstrations with the tools, it is sufficient for a submission to discuss the features of the approach wrt. the dimensions without actually implementing them. The dimensions are:
+% \begin{enumerate}[label=\alph*)]
+%     \item \textbf{Consistency}: This dimension is at the core of the challenge. In some shape or form models have to be kept consistent and here submissions are encouraged to discuss the consistency mechanism that manages the change in models. 
+%     % \begin{enumerate}
+%     % \item Cannot be managed.
+%     % \item Can be managed between structural models.
+%     % \item Can be managed between structural and behavioral models.
+%     % \item 
+%     % \end{enumerate}  
+
+%     \item \textbf{Technical Spaces}: Covers the ability of the approach to include models of different formats/metamodeling languages. This includes both the availability of explicitly defined semantics and, on the other hand, the syntax used to describe the models. 
+%     % Examples of technical spaces are:
+%     % \begin{enumerate}
+%     % \item EMF Model
+%     % \item Text-based artefacts (txt, csv, BPMN diagram?)
+%     % \item Proprietary formats (Excel, PowerPoint, Visio?)
+%     % \item Semantic gaps (e.g., mismatches between metamodels/languages).
+%     % \end{enumerate}
+
+%     \item \textbf{Views}: Aims at the possible interactions with the models. The interaction can be on the models themselves when they form a synthetic description of the system, or via views in a projective approach, or a combination of both. Additionally, the views may combine different models and display specific or arbitrary filtering or aggregations.
+%     % \begin{enumerate}
+%     % \item No explicit views, models are modified directly.
+%     % \item Identity between model and view.
+%     % \item (Complex) combination of several models.
+%     % \item Specific operations on views (how is the view-update problem handled).
+%     % \item Arbitrary operations (how can the editability of views be restricted).
+%     % \item View-level security policies.
+ 
+%     % \end{enumerate}
+% \end{enumerate}
+
+% Responses to this challenge should also highlight limitations, list key advantages and drawbacks of their solution, and compare to other known approaches in the literature
+
+% % General description of the task background, concepts, models, etc.
+% % Scenario is the development of a product, which includes several dimensions to think of, and in turn also model.
+% % Process of product development
+% % Product itself from different viewpoints
+% % Cooperation with suppliers
+% % product development, uml sequence diagram of development process, powerpoint \enquote{diagram} for behavior descriptions
+% % The models and a more concrete description of the evolution settings will be provided when the challenge is published.
+
+% % \subsubsection{Evolution Scenarios}
+
+% % \begin{itemize}
+% %     \item underlying heterogeneous models
+% %     \item views on those models going beyond software models
+% %     \item process description and a system PowerPoint, Excel, EMF
+% %     \item three main functions
+% %     \begin{itemize}
+% %         \item technological space
+% %         \item views
+% %         \item consistency
+% %     \end{itemize}
+% %     \item define different blocks for the different dimensions
+% %     \item having structural and behavioral aspects of the models
+% % \end{itemize}
+
+\bibliographystyle{abbrv}
+\bibliography{./refs}
+
+\appendix
+\section{Case Study: Description of Models}
+\label{app:Description}
+
+\input{appendix}
+
+\end{document}
