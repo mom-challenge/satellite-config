@@ -86,8 +86,6 @@ We define three Engineering Scenarios (ES) that are encountered during the desig
 
 We describe the MoM Tasks (MT) needed to support the Engineering Scenarios.
 
----
-
 **MT.1 -- Change Impact & Reconciliation [ES.1]**
 
 The change request in ES.1 consists of updating the value of mass of thruster component `T001` from `85.0` to `95.0 kilograms` in the Parts Catalogue, while preserving all other attributes.
@@ -99,8 +97,6 @@ The change request in ES.1 consists of updating the value of mass of thruster co
 5. At which granularity does propagation operate (e.g., element, feature, model)?
 6. Can an explicit structure (e.g., graph, tree) be computed to represent impacted elements?
 7. Can such structures be composed across multiple changes, and how deeply can they be inspected?
-
----
 
 **MT.2 -- Views Management [ES.2]**
 
@@ -114,8 +110,6 @@ Views may range from simple filtered projections to fully materialised models. I
 6. How are views notified of changes in the source model?
 7. Do source model changes automatically propagate to views? How?
 
----
-
 **MT.3 -- Querying & Validation [ES.1--2]**
 
 The modifications in MT.1--2 affect the derived value `calculated_total_mass_kg` in the Bill of Materials. As a result, Requirement `REQ001` is violated, since the total mass exceeds the threshold of `350 kilograms`. The Report must reflect this violation.
@@ -127,8 +121,6 @@ The modifications in MT.1--2 affect the derived value `calculated_total_mass_kg`
 5. Is the updated status reflected in the Report?
 6. Can impact analysis be performed manually by querying all relevant models?
 
----
-
 **MT.4 -- Concurrent Modifications [ES.3]**
 
 Concurrent editing without a predefined editing policy may introduce conflicts. For example, one communication engineer performs the modifications described in MT.2, whereas another engineer **concurrently** deletes the existing `ANT001` component *Antenna* and adds two new `ANT002` components called *AntennaPrimary* and *AntennaBackup*.
@@ -137,8 +129,6 @@ Concurrent editing without a predefined editing policy may introduce conflicts. 
 2. Are changes propagated in real time or through explicit synchronisation?
 3. If concurrent conflicting modifications are prevented, which mechanisms or policies detect and avoid such conflicts?
 4. Does the tool support live collaborative modelling? If so, how are conflicts visualised, prevented, or resolved?
-
----
 
 **MT.5 -- Version Management [ES.1--3]**
 
@@ -150,9 +140,3 @@ The modifications described in MT.1, MT.2, and MT.4 affect multiple artefacts an
 4. Can versions be enriched with metadata?
 5. Are such metadata queryable and exploitable?
 6. Can the rationale for version creation be captured and maintained?
-
----
-
-## Submitting a Solution
-
-See [SOLUTION.md](SOLUTION.md) for the expected structure and evaluation criteria for solution submissions.
