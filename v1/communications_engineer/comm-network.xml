@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <root>
+     <subsystem>communications</subsystem>
+     <nodes>
+         <component_id>Controller</component_id>
+         <type>CC001</type>
+         <role>signal_router</role>
+     </nodes>
+     <nodes>
+         <component_id>Antenna</component_id>
+         <type>ANT001</type>
+         <role>transceiver</role>
+     </nodes>
+     <links>
+         <source>Controller</source>
+         <target>Antenna</target>
+         <type>rf_connection</type>
+         <protocol>X-band</protocol>
+     </links>
+ </root>
